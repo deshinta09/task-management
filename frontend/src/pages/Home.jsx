@@ -1,4 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTask } from "../feature/taskSlice";
+
 export default function Home() {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.task.list);
+
+  useEffect(() => {
+    dispatch(fetchTask());
+  }, []);
+
+  // console.log(tasks, "<= semua data task di page home");
+
   return (
     <>
       <h1 className="text-2xl text-center my-10 font-bold">List Task</h1>

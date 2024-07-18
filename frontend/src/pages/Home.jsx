@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTask } from "../feature/taskSlice";
+import Navbar from "../components/navbar";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function Home() {
 
   return (
     <>
+      <Navbar page="home" />
       <h1 className="text-2xl text-center my-10 font-bold">List Task</h1>
       <div className="w-screen">
         <table className="w-11/12 m-auto">

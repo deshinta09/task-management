@@ -16,3 +16,10 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix'=>'api'], function()use ($router){
+    $router->get(uri:'/tasks',action:'TaskController@index');
+    $router->post(uri:'/tasks',action:'TaskController@create');
+    $router->put(uri:'/tasks/{id}',action:'TaskController@update');
+    $router->delete(uri:'/tasks/{id}',action:'TaskController@destroy');
+});

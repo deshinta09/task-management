@@ -55,9 +55,13 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        try {
+            return Task::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json(['status'=> 'error','message'=>$e->getMessage()],500);
+        }
     }
 
     /**

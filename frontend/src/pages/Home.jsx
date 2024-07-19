@@ -2,10 +2,33 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTask } from "../feature/taskSlice";
 import Navbar from "../components/navbar";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import instance from "../config/instance";
 
 export default function Home() {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task.list);
+  const navigate = useNavigate();
+
+  async function handleDelete(id) {
+    try {
+      let { data } = await instance({ method: "delete", url: `/tasks/${id}` });
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        text: data.message,
+      });
+      dispatch(fetchTask());
+    } catch (error) {
+      console.log(error, "<< error delete task");
+      Swal.fire({
+        title: "Oops...",
+        icon: "error",
+        text: error.response.data.message,
+      });
+    }
+  }
 
   useEffect(() => {
     dispatch(fetchTask());
@@ -38,13 +61,16 @@ export default function Home() {
                   {el.created_at.split("T")[0]}
                 </td>
                 <td className="py-3 px-5 flex gap-3 justify-evenly items-center">
-                  <button className="rounded py-2 px-4 bg-sky-500 text-white hover:bg-sky-800">
-                    Detail
-                  </button>
-                  <button className="rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-800">
+                  <button
+                    className="rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-800"
+                    onClick={() => navigate(`/edit-task/${el.id}`)}
+                  >
                     Edit
                   </button>
-                  <button className="rounded py-2 px-4 bg-red-500 text-white hover:bg-red-800">
+                  <button
+                    className="rounded py-2 px-4 bg-red-500 text-white hover:bg-red-800"
+                    onClick={() => handleDelete(el.id)}
+                  >
                     Hapus
                   </button>
                 </td>

@@ -29,27 +29,27 @@ export default function Home() {
             </tr>
           </thead>
           <tbody className="divide-y text-lg">
-            <tr>
-              <td className="p-3 px-5">User 1</td>
-              <td className="py-3 px-5 text-center">secret</td>
-              <td className="py-3 px-5 text-center">active</td>
-              <td className="py-3 px-5 text-center">10-11-2024</td>
-              <td className="py-3 px-5 text-center">hapus</td>
-            </tr>
-            <tr>
-              <td className="py-3 px-5">User 2</td>
-              <td className="py-3 px-5 text-center">secret</td>
-              <td className="py-3 px-5 text-center">active</td>
-              <td className="py-3 px-5 text-center">10-11-2024</td>
-              <td className="py-3 px-5 text-center">hapus</td>
-            </tr>
-            <tr>
-              <td className="py-3 px-5">User 3</td>
-              <td className="py-3 px-5 text-center">secret</td>
-              <td className="py-3 px-5 text-center">active</td>
-              <td className="py-3 px-5 text-center">10-11-2024</td>
-              <td className="py-3 px-5 text-center">hapus</td>
-            </tr>
+            {tasks.map((el) => (
+              <tr key={el.id}>
+                <td className="p-3 px-5">{el.title}</td>
+                <td className="py-3 px-5 text-center">{el.description}</td>
+                <td className="py-3 px-5 text-center">{el.status}</td>
+                <td className="py-3 px-5 text-center">
+                  {el.created_at.split("T")[0]}
+                </td>
+                <td className="py-3 px-5 flex gap-3 justify-evenly items-center">
+                  <button className="rounded py-2 px-4 bg-sky-500 text-white hover:bg-sky-800">
+                    Detail
+                  </button>
+                  <button className="rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-800">
+                    Edit
+                  </button>
+                  <button className="rounded py-2 px-4 bg-red-500 text-white hover:bg-red-800">
+                    Hapus
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

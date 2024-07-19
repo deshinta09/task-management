@@ -7,40 +7,45 @@ export const taskSlice = createSlice({
   name: "task",
   initialState: {
     list: [],
+    detail: {},
   },
   reducers: {
     setTask: (state, action) => {
       state.list = action.payload;
     },
+    setDetailTask: (state, action) => {
+      state.detail = action.payload;
+    },
   },
 });
 
-export const { setTask } = taskSlice.actions;
+export const { setTask, setDetailTask } = taskSlice.actions;
 
 export const fetchTask = () => {
   return async (dispatch) => {
     try {
-      //   let response = await instance({ method: "get", url: "/tasks" });
-      //   let response = await axios({
-      //     method: "get",
-      //     url: "http://localhost:8000/api/tasks",
-      //   });
-      let response = await fetch("http://localhost:8000/api/tasks");
-      let responseBody = await response.json();
-      console.log(responseBody, "<< data fetch");
+      let response = await instance({ method: "get", url: "/tasks" });
+      // console.log(response.data, "<< data fetch");
 
-      if (response.ok) {
-        dispatch(setTask(responseBody));
-      } else {
-        console.log(response, "<< respon error");
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Error to get data User",
-        });
-      }
+      dispatch(setTask(response.data));
     } catch (error) {
       console.log(error, "<-err fetch task");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.message,
+      });
+    }
+  };
+};
+
+export const fetchTaskById = (id) => {
+  return async (dispatch) => {
+    try {
+      let { data } = await instance({ method: "get", url: `/tasks/${id}` });
+      dispatch(setDetailTask(data));
+    } catch (error) {
+      console.log(error, "<-err fetch task by id");
       Swal.fire({
         icon: "error",
         title: "Oops...",

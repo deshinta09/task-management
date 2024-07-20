@@ -16,7 +16,7 @@ export default function Navbar({ page }) {
 
   return (
     <>
-      <div className="w-screen bg-[#9bbefe] p-5">
+      <div className="w-screen bg-[#9bbefe] p-3">
         <div className="flex justify-between items-center px-5">
           <div className="flex items-center">
             <img

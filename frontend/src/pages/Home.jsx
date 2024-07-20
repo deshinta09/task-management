@@ -42,7 +42,7 @@ export default function Home() {
       <h1 className="text-2xl text-center my-10 font-bold">List Task</h1>
       <div className="w-screen">
         <table className="w-11/12 m-auto">
-          <thead className="font-bold border text-xl">
+          <thead className="font-bold border border-current text-xl">
             <tr>
               <th className="p-3">Title</th>
               <th className="p-3">Description</th>
@@ -51,7 +51,7 @@ export default function Home() {
               <th className="p-3">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y text-lg">
+          <tbody className="divide-y divide-current text-lg">
             {tasks.map((el) => (
               <tr key={el.id}>
                 <td className="p-3 px-5">{el.title}</td>
